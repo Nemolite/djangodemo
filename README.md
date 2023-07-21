@@ -16,10 +16,12 @@
 ## venv (pip list)  
 - asgiref    3.7.2  
 - Django     4.2.3  
-- pip        23.2
-- setuptools 65.5.0
-- sqlparse   0.4.4
-- tzdata     2023.3
+- pip        23.2   
+- psycopg2   2.9.6  
+- setuptools 65.5.0 
+- sqlparse   0.4.4  
+- tzdata     2023.3 
+
 
 ## Использованный материал
 - [Документация (Официальный сайт)](https://www.djangoproject.com/)
@@ -44,9 +46,12 @@ django-admin startproject __root__
 #### Создание приложения
 python manage.py startapp __shop__
 
+#### Установка пакета для работы с PostgreSQL в  Django
+pip install psycopg2
+
 #### Запуск сервера разработки
 ##### С начало необходимо перейти в папку проекта __root__
 python manage.py runserver
 
 ## Внимание settings.info
-В целях безопасности файл перименован и изменен. Удален секретный ключ приложения, пармаетры доступа е БД 
+В целях безопасности файл перименован и изменен. Удален секретный ключ приложения, пармаетры доступа в БД 
