@@ -22,10 +22,10 @@
 - tzdata     2023.3
 
 ## Использованный материал
-- [Документация (Официальный сайт)] (https://www.example.com](https://www.djangoproject.com/)
-- [Документация на русском языке] (https://django.fun/ru/)
-- [Сайт metanit] (https://metanit.com/python/django/1.1.php)
-- [Сайт Django Girls] (https://tutorial.djangogirls.org/ru/) (:smile:)
+- [Документация (Официальный сайт)](https://www.example.com](https://www.djangoproject.com/)
+- [Документация на русском языке](https://django.fun/ru/)
+- [Сайт metanit](https://metanit.com/python/django/1.1.php)
+- [Сайт Django Girls](https://tutorial.djangogirls.org/ru/) (:smile:)
 
 ## Helper (Набор команд и настроек для разработки проекта)
 
