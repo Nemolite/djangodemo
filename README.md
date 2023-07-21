@@ -15,7 +15,8 @@
 
 ## venv (pip list)  
 - asgiref    3.7.2  
-- Django     4.2.3  
+- Django     4.2.3
+- Pillow     10.0.0
 - pip        23.2   
 - psycopg2   2.9.6  
 - setuptools 65.5.0 
@@ -48,6 +49,9 @@ python manage.py startapp __shop__
 
 #### Установка пакета для работы с PostgreSQL в  Django
 pip install psycopg2
+
+#### Установка пакета для работы с изображениями
+python -m pip install Pillow
 
 #### Запуск сервера разработки
 ##### С начало необходимо перейти в папку проекта __root__
