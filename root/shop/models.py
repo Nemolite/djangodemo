@@ -4,6 +4,14 @@ class Category(models.Model):
     name = models.CharField(max_length=100,db_index=True, verbose_name='Категория')
     description = models.CharField(max_length=255, verbose_name='Описание категории')
 
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Категория'  # Изменение назавния модели в админке
+        verbose_name_plural = 'Категории'  # Что бы корректно отображалось множественное число
+        ordering = ['name']  # Сортировка по времени создания и после по имени
+
 class Product(models.Model):
     name = models.CharField(max_length=100, db_index=True, verbose_name='Товар')
     description = models.CharField(max_length=255, verbose_name='Описание товара')
@@ -14,3 +22,11 @@ class Product(models.Model):
     created = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
     updated = models.DateTimeField(auto_now=True, verbose_name='Время изменения')
     category = models.ManyToManyField(Category)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Продукт'  # Изменение назавния модели в админке
+        verbose_name_plural = 'Продукты'  # Что бы корректно отображалось множественное число
+        ordering = ['name']  # Сортировка по времени создания и после по имени

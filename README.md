@@ -28,9 +28,10 @@
 - [Документация (Официальный сайт)](https://www.djangoproject.com/)
 - [Документация на русском языке](https://django.fun/ru/)
 - [Сайт metanit](https://metanit.com/python/django/1.1.php)
+- [Django в примерах](https://pocoz.gitbooks.io/django-v-primerah/content/)
 - [Сайт Django Girls](https://tutorial.djangogirls.org/ru/) (:smile:)
 
-## Helper (Набор команд и настроек для разработки проекта)
+### Helper (Набор команд и настроек для разработки проекта)
 
 #### Установка виртуальной среды
 python -m venv venv
