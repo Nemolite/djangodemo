@@ -12,6 +12,9 @@ class Category(models.Model):
         verbose_name_plural = 'Категории'  # Что бы корректно отображалось множественное число
         ordering = ['name']  # Сортировка по времени создания и после по имени
 
+    def get_absolute_url(self):
+        return f'/category/{self.id}/'
+
 class Product(models.Model):
     name = models.CharField(max_length=100, db_index=True, verbose_name='Товар')
     description = models.CharField(max_length=255, verbose_name='Описание товара')
@@ -30,3 +33,6 @@ class Product(models.Model):
         verbose_name = 'Продукт'  # Изменение назавния модели в админке
         verbose_name_plural = 'Продукты'  # Что бы корректно отображалось множественное число
         ordering = ['name']  # Сортировка по времени создания и после по имени
+
+    def get_absolute_url(self):
+        return f'/product/{self.id}/'

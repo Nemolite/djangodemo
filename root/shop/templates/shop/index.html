@@ -1,1 +1,25 @@
 {% extends 'shop/basa.html' %}
+
+{% block contentcategory %}
+ <h2 class="main-sction-title">Категории</h2>
+        <h2><a href="{% url 'index' %}">Все категории</a></h2>
+            <ul class="category-sction">
+                {% for c in category %}
+                    <li>
+                       <h2><a href="{{ c.get_absolute_url }}">{{c.name}}</a></h2>
+                    </li>
+                {% endfor %}
+            </ul>
+{% endblock %}
+
+{% block contentproduct %}
+ <h2 class="main-sction-title">Товары</h2>
+    {% for p in product %}
+            <p><a href="{{ p.get_absolute_url }}">{{p.name}}</a></p>
+            <p>Описание товара: {{p.description}}</p>
+            <p>Страна производитель: {{p.country}}</p>
+            <p>Стоимость товара: {{p.price}}</p>
+            <p>Изображение товара: {{p.image}}</p>
+            <hr>
+    {% endfor %}
+{% endblock %}

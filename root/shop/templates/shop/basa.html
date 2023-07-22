@@ -26,12 +26,12 @@
 </div>
 <div class="main-section">
     <div class="main-sidebar">
-        <h2>Категории товаров</h2>
-
+        {% block contentcategory %}
+        {% endblock %}
     </div> <!-- class="main-sidebar" -->
     <div class="main-content">
-        <h3>Каталог товаров</h3>
-
+        {% block contentproduct %}
+        {% endblock %}
     </div> <!-- class="main-content" -->
 </div><!-- class="main-section" -->
 <div class="footer">
