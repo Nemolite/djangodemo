@@ -7,6 +7,8 @@ from .views import *
 
 urlpatterns = [
     path('', index,name='index'),
+    path('category/<int:id>/',category,name='category' ),
+    path('product/<int:id>/',product,name='product' ),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
