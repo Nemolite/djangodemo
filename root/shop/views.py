@@ -31,6 +31,13 @@ def product(request,id):
 
     return render(request,'shop/product.html',context=context)
 
+def onas(request):
+    product = Product.objects.all().order_by("-created")[:5]
+    context = {
+        'product': product,
+    }
+    return render(request, 'shop/onas.html', context=context)
+
 # Для 404 ошибки
 def pageNotFound(request,exception):
     return  HttpResponseNotFound("<h1>Страница не найдена</h1>")
