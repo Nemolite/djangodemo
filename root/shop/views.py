@@ -31,6 +31,9 @@ def product(request,id):
 
     return render(request,'shop/product.html',context=context)
 
+def addproduct(request,id):
+    return render(request, 'shop/cart.html')
+
 def onas(request):
     product = Product.objects.all().order_by("-created")[:5]
     context = {

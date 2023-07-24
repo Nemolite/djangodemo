@@ -36,3 +36,6 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return f'/product/{self.id}/'
+
+    def get_addproduct_url(self):
+        return f'/addproduct/{self.id}/'

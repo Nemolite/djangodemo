@@ -27,6 +27,7 @@
 ## Использованный материал
 - [Документация (Официальный сайт)](https://www.djangoproject.com/)
 - [Документация на русском языке](https://django.fun/ru/)
+- [Python/Django и др](https://proproprogs.ru/django)
 - [Сайт metanit](https://metanit.com/python/django/1.1.php)
 - [Django в примерах](https://pocoz.gitbooks.io/django-v-primerah/content/)
 - [Сайт Django Girls](https://tutorial.djangogirls.org/ru/) (:smile:)

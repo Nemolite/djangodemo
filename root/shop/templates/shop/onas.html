@@ -3,7 +3,7 @@
 
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner">
-
+            <h3>Новинки компании</h3>
               {% for p in product %}
                 <div class="carousel-item {% if p.pk == 1 %} active {% endif %} fix-carousel-item">
                   <img src="{{p.image.url}}" class="d-block w-100" alt="{{p.name}}">
