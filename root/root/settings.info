@@ -25,6 +25,8 @@ SECRET_KEY = '<Здесь должен быть секретный ключ>'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+CART_SESSION_ID = 'cart'
+
 ALLOWED_HOSTS = []
 
 # Application definition
@@ -36,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'shop',
+    'shop.apps.ShopConfig',
+    'cart.apps.CartConfig',
 
 ]
 
