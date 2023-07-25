@@ -1,4 +1,5 @@
 from django.http import HttpResponseNotFound
+from cart.forms import CartAddProductForm
 from django.shortcuts import render, get_object_or_404
 
 from .models import *
@@ -23,14 +24,7 @@ def category(request,id):
 
     return render(request,'shop/index.html',context=context)
 
-def product(request,id):
-    product = Product.objects.filter(id=id)
-    context = {
-        'product': product,
-    }
-
-    return render(request,'shop/product.html',context=context)
-
+# Страница о нас
 def onas(request):
     product = Product.objects.all().order_by("-created")[:5]
     context = {
@@ -41,3 +35,13 @@ def onas(request):
 # Для 404 ошибки
 def pageNotFound(request,exception):
     return  HttpResponseNotFound("<h1>Страница не найдена</h1>")
+
+# Страница показа одного товара
+def product(request, id):
+    product = get_object_or_404(Product,id=id)
+    cart_product_form = CartAddProductForm()
+    context = {
+        'product': product,
+        'cart_product_form': cart_product_form
+    }
+    return render(request,'shop/product.html',context=context)

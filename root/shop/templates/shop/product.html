@@ -1,17 +1,20 @@
 {% extends 'shop/basa.html' %}
 {% block oneproduct %}
- {% for p in product %}
+
          <h3>Карточка товара</h3>
           <div class="card" style="width: 18rem;">
-              <img src="{{p.image.url}}" class="card-img-top" alt="{{p.name}}">
+              <img src="{{product.image.url}}" class="card-img-top" alt="{{product.name}}">
               <div class="card-body">
-                <h5 class="card-title">{{p.name}}</h5>
-                <h5 class="card-title">Стоимость товара: {{p.price}}</h5>
-                <p class="card-text">Описание товара: {{p.description}}</p>
-                <p class="card-text">Страна производитель: {{p.country}}</p>
-                <a href="#" class="btn btn-success">Добавить в корзину</a>
+                <h5 class="card-title">{{product.name}}</h5>
+                <h5 class="card-title">Стоимость товара: {{product.price}}</h5>
+                <p class="card-text">Описание товара: {{product.description}}</p>
+                <p class="card-text">Страна производитель: {{product.country}}</p>
+                   <form action="{% url 'cart:cart_add' product.id %}" method="post">
+                      {{ cart_product_form }}
+                      {% csrf_token %}
+                  <input type="submit" value="Добавить в корзину" class="btn btn-success">
               </div>
             </div><!-- class="card" -->
 
-    {% endfor %}
+
 {% endblock %}
