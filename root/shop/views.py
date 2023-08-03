@@ -80,13 +80,12 @@ def cart_remove(request, product_id):
 
 
 def cart(request):
-    cart = Cart(request)
-    print(cart)
+    cartproduct = Cart(request)
     # for item in cart:
     #     item['update_quantity_form'] = CartAddProductForm(initial={
     #                         'quantity': item['quantity'],
     #                         'override': True})
     context = {
-        'cartproduct': cart
+        'cartproduct': cartproduct
     }
     return render(request, 'shop/cart.html', context=context)

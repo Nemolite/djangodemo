@@ -2,9 +2,8 @@
 
 {% load static %}
 {% block cartcontent %}
-  <h1>Your shopping cart</h1>
-{{ cartproduct }}
-{% if cartproduct %}
+  <h1>Твоя корзина</h1>
+{% if cartproduct.cart|length != 0 %}
   <table class="cart">
     <thead>
       <tr>
@@ -17,8 +16,7 @@
       </tr>
     </thead>
     <tbody>
-
-      {% for item in cartproduct %}
+      {% for item in cartproduct.cart %}
         {% with product=item.product %}
           <tr>
             <td>
@@ -55,11 +53,12 @@
     </tbody>
   </table>
   <p class="text-right">
-    <a href="{% url 'product_list' %}" class="button
-    light">Continue shopping</a>
-    <a href="{% url 'order_create' %}" class="button">Checkout</a>
+    <a href="{% url 'index' %}" class="button
+    light">Продолжить покупки</a>
+    <a href="" class="button">Checkout</a>
   </p>
 {% else %}
-    <div>Hello</div>
-{% endif %}
+  <p>Ваша корзина пуста</p>
+{% endif%}
+
 {% endblock %}
