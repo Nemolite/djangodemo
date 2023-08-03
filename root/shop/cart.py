@@ -1,6 +1,6 @@
 from decimal import Decimal
 from django.conf import settings
-from shop.models import Product
+from .models import Product
 class Cart:
     def __init__(self, request):
         """
@@ -25,8 +25,7 @@ class Cart:
             нить количество переданным количеством (True) либо прибавить новое
             количество к существующему количеству (False)
         """
-        """
-        Add a product to the cart or update its quantity.
+        """       
         Добавить товар в корзину либо обновить его количество
         """
         product_id = str(product.id)
@@ -57,8 +56,6 @@ class Cart:
 
     def __iter__(self):
         """
-        Iterate over the items in the cart and get the products
-        from the database.
         Прокрутить товарные позиции корзины в цикле и
         получить товары из базы данных.
         """
@@ -76,13 +73,11 @@ class Cart:
 
     def __len__(self):
         """
-        Count all items in the cart.
         Подсчитать все товарные позиции в корзине
         """
         return sum(item['quantity'] for item in self.cart.values())
 
     def clear(self):
-        # remove cart from session
         # удалить корзину из сеанса
         del self.session[settings.CART_SESSION_ID]
         self.save()

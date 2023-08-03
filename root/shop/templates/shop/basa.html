@@ -19,6 +19,7 @@
         <nav>
             <ul class="header-menu-main">
                     <li><a href="{% url 'index' %}">Главная</a></li>
+                    <li><a href="{% url 'cart' %}">Корзина</a></li>
                     <li><a href="{% url 'onas' %}">О нас</a></li>
             </ul>
         </nav>
@@ -39,6 +40,8 @@
         {% endblock %}
         {% block onas %}
         {% endblock %}
+        {% block cartcontent %}
+         {% endblock %}
 
     </div> <!-- class="main-content" -->
 </div><!-- class="main-section" -->

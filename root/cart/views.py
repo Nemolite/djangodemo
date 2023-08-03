@@ -9,15 +9,24 @@ from .forms import CartAddProductForm
 
 @require_POST
 def cart_add(request, product_id):
+    # Инициализация корзины через конструктор
     cart = Cart(request)
+    # Получение товара по id
     product = get_object_or_404(Product, id=product_id)
+    # Получение данных с формы
     form = CartAddProductForm(request.POST)
+    # Валидция элементов формы
     if form.is_valid():
+        # Доступ к чистым данным
         cd = form.cleaned_data
+        # Используем метод add для добавления товара в корзину
+        # Первый параметр - товар
+        # Второ параметр - количество
+        # Третий параметр - False
         cart.add(product=product,
                  quantity=cd['quantity'],
                  override_quantity=cd['override'])
-    return redirect('cart:cart_detail')
+    return redirect('onas')
 
 
 @require_POST
@@ -34,4 +43,4 @@ def cart_detail(request):
         item['update_quantity_form'] = CartAddProductForm(initial={
                             'quantity': item['quantity'],
                             'override': True})
-    return render(request, 'cart/detail.html', {'cart': cart})
+    return render(request, 'cart/cart.html', {'cart': cart})
