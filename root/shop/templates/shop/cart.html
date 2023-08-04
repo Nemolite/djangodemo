@@ -2,63 +2,67 @@
 
 {% load static %}
 {% block cartcontent %}
-  <h1>Твоя корзина</h1>
-{% if cartproduct.cart|length != 0 %}
-  <table class="cart">
-    <thead>
-      <tr>
-        <th>Image</th>
-        <th>Product</th>
-        <th>Quantity</th>
-        <th>Remove</th>
-        <th>Unit price</th>
-        <th>Price</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for item in cartproduct.cart %}
-        {% with product=item.product %}
+{% if user.is_authenticated %}
+      <h1>Корзина пользователя {{ user.username }} </h1>
+    {% if cartproduct.cart|length != 0 %}
+      <table class="cart">
+        <thead>
           <tr>
-            <td>
-              <a href="{{ product.get_absolute_url }}">
-                <img src="{% if product.image %}{{ product.image.url }}
-                {% else %}{% static 'img/no_image.png' %}{% endif %}">
-              </a>
-            </td>
-            <td>{{ product.name }}</td>
-            <td>
-              <form action="{% url 'cart_add' product.id %}" method="post">
-                {{ item.update_quantity_form.quantity }}
-                {{ item.update_quantity_form.override }}
-                <input type="submit" value="Update">
-                {% csrf_token %}
-              </form>
-            </td>
-            <td>
-              <form action="{% url 'cart_remove' product.id %}" method="post">
-                <input type="submit" value="Remove">
-                {% csrf_token %}
-              </form>
-            </td>
-            <td class="num">${{ item.price }}</td>
-            <td class="num">${{ item.total_price }}</td>
+            <th>Миниатюра</th>
+            <th>Наименование</th>
+            <th>Количество</th>
+            <th>Действие</th>
+            <th>Unit price</th>
+            <th>Price</th>
           </tr>
-        {% endwith %}
-      {% endfor %}
-      <tr class="total">
-        <td>Total</td>
-        <td colspan="4"></td>
-        <td class="num">${{ cart.get_total_price }}</td>
-      </tr>
-    </tbody>
-  </table>
-  <p class="text-right">
-    <a href="{% url 'index' %}" class="button
-    light">Продолжить покупки</a>
-    <a href="" class="button">Checkout</a>
-  </p>
+        </thead>
+        <tbody>
+          {% for item in cartproduct %}
+            {% with product=item.product %}
+              <tr>
+                <td>
+                  <a href="{{ product.get_absolute_url }}">
+                    <img src="{% if product.image %}{{ product.image.url }}
+                    {% else %}{% static 'img/no_image.png' %}{% endif %}"
+                     alt="{{product.name}}"
+                    >
+                  </a>
+                </td>
+                <td>{{ product.name }}</td>
+                <td>
+                  <form action="" method="post">
+                      {% csrf_token %}
+                  <input type="submit" value="Добавить">
+                  </form>
+                </td>
+                <td>
+                  <form action="" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Удалить">
+
+                  </form>
+                </td>
+                <td class="num">{{ item.price }}</td>
+                <td class="num">{{ item.total_price }}</td>
+              </tr>
+            {% endwith %}
+          {% endfor %}
+          <tr class="total">
+            <td>Итого:Сумма заказа</td>
+            <td colspan="4"></td>
+            <td class="num">{{ cart.get_total_price }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="text-right">
+        <a href="{% url 'index' %}" class="btn btn-success">Продолжить покупки</a>
+        <a href="" class="button">Checkout</a>
+      </p>
+    {% else %}
+      <p>Ваша корзина пуста</p>
+    {% endif%}
 {% else %}
-  <p>Ваша корзина пуста</p>
-{% endif%}
+    <p>Welcome, new user. Please log in.</p>
+{% endif %}
 
 {% endblock %}

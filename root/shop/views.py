@@ -3,7 +3,7 @@ from django.views.decorators.http import require_POST
 # from cart.forms import CartAddProductForm
 from django.shortcuts import render, redirect, get_object_or_404
 from .cart import Cart
-from .forms import CartAddProductForm
+from .forms import CartAddProductForm, CartForm
 
 from .models import *
 
@@ -42,33 +42,32 @@ def pageNotFound(request,exception):
 # Страница показа одного товара
 def product(request, id):
     product = get_object_or_404(Product,id=id)
-    cart_product_form = CartAddProductForm()
+    product_quantity_choices = [(i, str(i)) for i in range(1, product.quantity)]
+    # cart_product_form = CartForm(product_quantity_choices)
     context = {
         'product': product,
-        'cart_product_form': cart_product_form
+        'product_quantity_choices':product_quantity_choices
     }
     return render(request,'shop/product.html',context=context)
 
 @require_POST
 def cart_add(request, product_id):
+    # print(request.POST)
     # Инициализация корзины через конструктор
     cart = Cart(request)
     # Получение товара по id
     product = get_object_or_404(Product, id=product_id)
+    # print(product)
     # Получение данных с формы
     form = CartAddProductForm(request.POST)
     # Валидция элементов формы
     if form.is_valid():
         # Доступ к чистым данным
         cd = form.cleaned_data
-        # Используем метод add для добавления товара в корзину
-        # Первый параметр - товар
-        # Второ параметр - количество
-        # Третий параметр - False
-        cart.add(product=product,
-                 quantity=cd['quantity'],
-                 override_quantity=cd['override'])
-    return redirect('onas')
+
+        cart.add(product=product,quantity=cd['quantity'])
+    url =  '/product/' + str(product_id) + '/'
+    return redirect(url)
 
 
 @require_POST
@@ -81,6 +80,9 @@ def cart_remove(request, product_id):
 
 def cart(request):
     cartproduct = Cart(request)
+    print(cartproduct)
+    print(cartproduct.cart)
+    print(cartproduct.cart.items())
     # for item in cart:
     #     item['update_quantity_form'] = CartAddProductForm(initial={
     #                         'quantity': item['quantity'],

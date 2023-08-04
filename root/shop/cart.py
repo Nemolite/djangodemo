@@ -7,43 +7,22 @@ class Cart:
         cart = self.session.get(settings.CART_SESSION_ID)
         if not cart:
             cart = self.session[settings.CART_SESSION_ID] = {}
-            self.cart = cart
+        self.cart = cart
 
-    def add(self, product, quantity=1, override_quantity=False):
-        """
-        Метод add() принимает на входе следующие ниже параметры:
-            • product: экземпляр product для его добавления в корзину либо его об-
-            новления;
-            • quantity: опциональное целое число с количеством товара. По умолча-
-            нию равен 1;
-            • override_quantity: это булево значение, указывающее, нужно ли заме-
-            нить количество переданным количеством (True) либо прибавить новое
-            количество к существующему количеству (False)
-        """
-        """       
-        Добавить товар в корзину либо обновить его количество
-        """
+    def add(self, product, quantity=1):
         product_id = str(product.id)
         print(product_id)
-        # if product_id not in self.cart:
-        #     self.cart[product_id] = {'quantity': 0,
-        #                              'price': str(product.price)}
-        # if override_quantity:
-        #     self.cart[product_id]['quantity'] = quantity
-        # else:
-        #     self.cart[product_id]['quantity'] += quantity
-        # self.save()
+        print(self.cart)
+        if product_id not in self.cart:
+            self.cart[product_id] = {'quantity': 0,
+                                     'price': str(product.price)}
+        self.save()
 
     def save(self):
-        # mark the session as "modified" to make sure it gets saved
-        # пометить сеанс как "измененный",
-        # чтобы обеспечить его сохранение
+        self.session[settings.CART_SESSION_ID] = self.cart
         self.session.modified = True
 
     def remove(self, product):
-        """
-        Удалить товар из корзины
-        """
         product_id = str(product.id)
         if product_id in self.cart:
             del self.cart[product_id]
@@ -55,7 +34,6 @@ class Cart:
         получить товары из базы данных.
         """
         product_ids = self.cart.keys()
-        # get the product objects and add them to the cart
         # получить объекты product и добавить их в корзину
         products = Product.objects.filter(id__in=product_ids)
         cart = self.cart.copy()

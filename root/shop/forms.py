@@ -21,3 +21,15 @@ class CartAddProductForm(forms.Form):
     override = forms.BooleanField(required=False,
                                   initial=False,
                                   widget=forms.HiddenInput)
+
+# Эксперементы
+class CartForm(forms.Form):
+    def __init__(self, product_quantity_choices):
+        super().__init__()
+        self.product_quantity_choices = product_quantity_choices
+
+    def max_product_quantity_choices(self):
+        return self.product_quantity_choices
+
+    quantity = forms.TypedChoiceField(choices= PRODUCT_QUANTITY_CHOICES,coerce=int)
+
