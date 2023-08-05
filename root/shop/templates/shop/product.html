@@ -9,13 +9,14 @@
                 <h5 class="card-title">Стоимость товара: {{product.price}}</h5>
                 <p class="card-text">Описание товара: {{product.description}}</p>
                 <p class="card-text">Страна производитель: {{product.country}}</p>
-                   <form action="{% url 'cart_add' product.id %}" method="post">
+                   <form action="{% url 'cart_add' product.id %}" method="post" name="addproductcart">
                         {% csrf_token %}
                       <select name="quantity">
                           {% for key, value in product_quantity_choices %}
                                 <option value="{{key}}" >{{value}}</option>
                           {% endfor %}
                       </select>
+
                       <input type="submit" value="Добавить в корзину" class="btn btn-success">
                     </form>
               </div>

@@ -3,7 +3,6 @@ from django.views.decorators.http import require_POST
 # from cart.forms import CartAddProductForm
 from django.shortcuts import render, redirect, get_object_or_404
 from .cart import Cart
-from .forms import CartAddProductForm, CartForm
 
 from .models import *
 
@@ -42,7 +41,7 @@ def pageNotFound(request,exception):
 # Страница показа одного товара
 def product(request, id):
     product = get_object_or_404(Product,id=id)
-    product_quantity_choices = [(i, str(i)) for i in range(1, product.quantity)]
+    product_quantity_choices = [(i, str(i)) for i in range(1, product.quantity+1)]
     # cart_product_form = CartForm(product_quantity_choices)
     context = {
         'product': product,
@@ -52,23 +51,12 @@ def product(request, id):
 
 @require_POST
 def cart_add(request, product_id):
-    # print(request.POST)
-    # Инициализация корзины через конструктор
     cart = Cart(request)
-    # Получение товара по id
     product = get_object_or_404(Product, id=product_id)
-    # print(product)
-    # Получение данных с формы
-    form = CartAddProductForm(request.POST)
-    # Валидция элементов формы
-    if form.is_valid():
-        # Доступ к чистым данным
-        cd = form.cleaned_data
-
-        cart.add(product=product,quantity=cd['quantity'])
+    quantity = request.POST.get("quantity")
+    cart.add(product=product,quantity=quantity)
     url =  '/product/' + str(product_id) + '/'
     return redirect(url)
-
 
 @require_POST
 def cart_remove(request, product_id):
@@ -80,13 +68,7 @@ def cart_remove(request, product_id):
 
 def cart(request):
     cartproduct = Cart(request)
-    print(cartproduct)
     print(cartproduct.cart)
-    print(cartproduct.cart.items())
-    # for item in cart:
-    #     item['update_quantity_form'] = CartAddProductForm(initial={
-    #                         'quantity': item['quantity'],
-    #                         'override': True})
     context = {
         'cartproduct': cartproduct
     }

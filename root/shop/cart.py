@@ -11,11 +11,18 @@ class Cart:
 
     def add(self, product, quantity=1):
         product_id = str(product.id)
-        print(product_id)
-        print(self.cart)
+        total_product_price = product.price
         if product_id not in self.cart:
-            self.cart[product_id] = {'quantity': 0,
-                                     'price': str(product.price)}
+            self.cart[product_id] = {'quantity': 1,
+                                     'price': str(product.price),
+                                     'total_product_price':str(total_product_price)}
+        else:
+            cart_quantity = self.cart[product_id]['quantity']
+            cart_quantity = cart_quantity + int(quantity)
+            total_product_price = total_product_price + product.price
+            self.cart[product_id] = {'quantity': cart_quantity,
+                                     'price': str(product.price),
+                                     'total_product_price': str(total_product_price)}
         self.save()
 
     def save(self):
@@ -29,14 +36,13 @@ class Cart:
             self.save()
 
     def __iter__(self):
-        """
-        Прокрутить товарные позиции корзины в цикле и
-        получить товары из базы данных.
-        """
+        # Получаем id товаров котрые в корзине
         product_ids = self.cart.keys()
-        # получить объекты product и добавить их в корзину
+        # получить объекты product
         products = Product.objects.filter(id__in=product_ids)
+        # создаем копию корзины
         cart = self.cart.copy()
+        # перебираем товары
         for product in products:
             cart[str(product.id)]['product'] = product
         for item in cart.values():
@@ -45,9 +51,7 @@ class Cart:
             yield item
 
     def __len__(self):
-        """
-        Подсчитать все товарные позиции в корзине
-        """
+        # Подсчитать все товарные позиции в корзине
         return sum(item['quantity'] for item in self.cart.values())
 
     def clear(self):
