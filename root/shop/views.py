@@ -9,10 +9,15 @@ from .models import *
 
 def index(request):
     product = Product.objects.all()
+    product_quantity = {}
+    for p in product:
+        product_quantity[p.id] = [(i, str(i)) for i in range(1, p.quantity+1)]
+
     category = Category.objects.all()
     context = {
         'product': product,
         'category': category,
+        'product_quantity':product_quantity
     }
     return render(request, 'shop/index.html', context=context )
 
@@ -42,7 +47,6 @@ def pageNotFound(request,exception):
 def product(request, id):
     product = get_object_or_404(Product,id=id)
     product_quantity_choices = [(i, str(i)) for i in range(1, product.quantity+1)]
-    # cart_product_form = CartForm(product_quantity_choices)
     context = {
         'product': product,
         'product_quantity_choices':product_quantity_choices
@@ -68,8 +72,12 @@ def cart_remove(request, product_id):
 
 def cart(request):
     cartproduct = Cart(request)
-    print(cartproduct.cart)
     context = {
         'cartproduct': cartproduct
     }
     return render(request, 'shop/cart.html', context=context)
+
+def delete_cart(request):
+    cart = Cart(request)
+    cart.clear()
+    return redirect('cart')

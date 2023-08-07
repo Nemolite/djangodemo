@@ -56,6 +56,11 @@
 .main-content {
     width:80%;
 }
+.cart {
+    width:100%;
+    border: 1px solid grey;
+
+}
 
 .main-sction-title{
     text-align: center;

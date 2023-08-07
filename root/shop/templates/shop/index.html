@@ -32,7 +32,21 @@
                 <p class="card-text">Описание товара: {{p.description}}</p>
                 <p class="card-text">Страна производитель: {{p.country}}</p>
                 <a href="{{ p.get_absolute_url }}" class="btn btn-primary fix-show-btn">Посмотреть</a>
-                <a href="{{ p.get_addproduct_url}}" class="btn btn-success">Добавить в корзину</a>
+
+                  <form action="{% url 'cart_add' p.id %}" method="post" name="addproductcart">
+                        {% csrf_token %}
+                      <select name="quantity">
+                          {% for key, value in product_quantity.items %}
+                            {% if key == p.id %}
+                              {% for k, v in value %}
+                                    <option value="{{k}}" >{{v}}</option>
+                              {% endfor %}
+                            {% endif %}
+                          {% endfor %}
+                      </select>
+
+                      <input type="submit" value="Добавить в корзину" class="btn btn-success">
+                    </form>
 
               </div>
             </div><!-- class="card" -->
