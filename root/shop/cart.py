@@ -17,9 +17,9 @@ class Cart:
                                      'price': str(product.price),
                                      'total_product_price':str(total_product_price)}
         else:
-            total_product_price = int(self.cart[product_id]['total_product_price'])
+            total_product_price = Decimal(self.cart[product_id]['total_product_price'])
             cart_quantity = self.cart[product_id]['quantity']
-            cart_quantity = cart_quantity + int(quantity)
+            cart_quantity = int(cart_quantity) + int(quantity)
             total_product_price = total_product_price + product.price * int(quantity)
             self.cart[product_id] = {'quantity': cart_quantity,
                                      'price': str(product.price),
