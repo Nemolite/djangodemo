@@ -3,6 +3,7 @@ from django.views.decorators.http import require_POST
 # from cart.forms import CartAddProductForm
 from django.shortcuts import render, redirect, get_object_or_404
 from .cart import Cart
+from .forms import OrderCreateForm
 
 from .models import *
 
@@ -81,3 +82,22 @@ def delete_cart(request):
     cart = Cart(request)
     cart.clear()
     return redirect('cart')
+
+def order_create(request):
+    cart = Cart(request)
+    if request.method == 'POST':
+        form = OrderCreateForm(request.POST)
+        if form.is_valid():
+            order = form.save()
+            for item in cart:
+                OrderItem.objects.create(order=order,
+                                         product=item['product'],
+                                         price=item['price'],
+                                         quantity=item['quantity'])
+            # очистка корзины
+            cart.clear()
+            return render(request, 'shop/created.html',{'order': order})
+    else:
+        form = OrderCreateForm
+    return render(request, 'shop/create.html',
+                  {'cart': cart, 'form': form})
